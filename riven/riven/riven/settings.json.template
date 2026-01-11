@@ -1,0 +1,152 @@
+{
+    "version": "0.23.6",
+    "api_key": "",
+    "debug": true,
+    "debug_database": false,
+    "log": true,
+    "force_refresh": false,
+    "map_metadata": true,
+    "tracemalloc": false,
+    "symlink": {
+        "rclone_path": "/mnt/zurg/__all__",
+        "library_path": "/mnt/library",
+        "separate_anime_dirs": false,
+        "repair_symlinks": true,
+        "repair_interval": 6.0
+    },
+    "updaters": {
+        "updater_interval": 120,
+        "plex": {
+            "enabled": true,
+            "token": "",
+            "url": "http://192.168.1.63:32400"
+        },
+        "jellyfin": {
+            "enabled": false,
+            "api_key": "",
+            "url": "http://localhost:8096"
+        },
+        "emby": {
+            "enabled": false,
+            "api_key": "",
+            "url": "http://localhost:8096"
+        }
+    },
+    "downloaders": {
+        "video_extensions": [
+            "mp4",
+            "mkv",
+            "avi"
+        ],
+        "movie_filesize_mb_min": 700,
+        "movie_filesize_mb_max": -1,
+        "episode_filesize_mb_min": 100,
+        "episode_filesize_mb_max": -1,
+        "proxy_url": "",
+        "real_debrid": {
+            "enabled": true,
+            "api_key": ""
+        },
+        "all_debrid": {
+            "enabled": false,
+            "api_key": ""
+        },
+        "torbox": {
+            "enabled": false,
+            "api_key": ""
+        }
+    },
+    "content": {
+        "overseerr": {
+            "update_interval": 30,
+            "enabled": false,
+            "url": "",
+            "api_key": "",
+            "use_webhook": false
+        },
+        "plex_watchlist": {
+            "update_interval": 60,
+            "enabled": true,
+            "rss": []
+        },
+        "mdblist": {
+            "update_interval": 300,
+            "enabled": true,
+            "api_key": "",
+            "lists": [
+                "https://mdblist.com/lists/zeroq/new-releases",
+                "https://mdblist.com/lists/zeroq/currently-watching-shows",
+                "https://mdblist.com/lists/zeroq/boxsets",
+                "https://mdblist.com/lists/zeroq/because-you-watched-on-stremio",
+                "https://mdblist.com/lists/zeroq/certified-fresh",
+                "https://mdblist.com/lists/zeroq/trending-on-stremio",
+                "https://mdblist.com/lists/zeroq/recommended-on-stremio",
+                "https://mdblist.com/lists/zeroq/foreign-releases-on-stremio",
+                "https://mdblist.com/lists/zeroq/exyu-releases-on-stremio",
+                "https://mdblist.com/lists/zeroq/upcoming"
+            ]
+        },
+        "listrr": {
+            "update_interval": 300,
+            "enabled": false,
+            "movie_lists": [],
+            "show_lists": [],
+            "api_key": ""
+        },
+        "trakt": {
+            "update_interval": 300,
+            "enabled": false,
+            "api_key": "",
+            "watchlist": [],
+            "user_lists": [],
+            "collection": [],
+            "fetch_trending": false,
+            "trending_count": 10,
+            "fetch_popular": false,
+            "popular_count": 10,
+            "fetch_most_watched": false,
+            "most_watched_period": "weekly",
+            "most_watched_count": 10,
+            "oauth": {
+                "oauth_client_id": "",
+                "oauth_client_secret": "",
+                "oauth_redirect_uri": "",
+                "access_token": "",
+                "refresh_token": ""
+            },
+            "proxy_url": ""
+        }
+    },
+    "scraping": {
+        "after_2": 2.0,
+        "after_5": 6.0,
+        "after_10": 24.0,
+        "parse_debug": false,
+        "enable_aliases": true,
+        "bucket_limit": 5,
+        "max_failed_attempts": 0,
+        "dubbed_anime_only": true,
+        "torrentio": {
+            "enabled": true,
+            "filter": "sort=qualitysize%7Cqualityfilter=480p,scr,cam",
+            "url": "http://torrentio.strem.fun",
+            "timeout": 30,
+            "ratelimit": true,
+            "proxy_url": ""
+        },
+        "knightcrawler": {
+            "enabled": false,
+            "filter": "sort=qualitysize%7Cqualityfilter=480p,scr,cam,unknown",
+            "url": "https://knightcrawler.elfhosted.com/",
+            "timeout": 30,
+            "ratelimit": false
+        },
+        "jackett": {
+            "enabled": false,
+            "url": "http://localhost:9117",
+            "api_key": "",
+            "timeout": 10,
+            "ratelimit": false
+        }
+    }
+}

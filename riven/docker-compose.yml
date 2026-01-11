@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  riven-frontend:
+    image: spoked/riven-frontend:latest
+    container_name: riven-frontend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./riven/rivenfrontend:/riven/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - ORIGIN=http://192.168.1.63:3000
+      - BACKEND_URL=http://riven:8080
+      - DIALECT=postgres
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@riven-db/riven
+    depends_on:
+      - riven
+    networks:
+      - riven_network
+
+  riven:
+    image: spoked/riven:latest
+    container_name: riven
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - RIVEN_FORCE_ENV=true
+      - RIVEN_DATABASE_HOST=postgresql+psycopg2://postgres:postgres@riven-db/riven
+      - RIVEN_PLEX_URL=
+      - RIVEN_PLEX_TOKEN=
+      - RIVEN_PLEX_RCLONE_PATH=/mnt/zurg/__all__
+      - RIVEN_PLEX_LIBRARY_PATH=/mnt/library
+      - RIVEN_DOWNLOADERS_REAL_DEBRID_API_KEY=
+      - RIVEN_ORIGIN=http://192.168.1.63:3000
+      - REPAIR_SYMLINKS=false
+      - HARD_RESET=false
+    volumes:
+      - ./riven/riven:/riven/data
+      - /mnt:/mnt/
+      - /mnt/zurg/__all__:/mnt/zurg/__all__
+    depends_on:
+      riven_postgres:
+        condition: service_healthy
+    networks:
+      - riven_network
+
+  riven_postgres:
+    image: postgres:16.3-alpine3.20
+    container_name: riven-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=riven
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./riven/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - riven_network
+
+networks:
+  riven_network:
+    driver: bridge
